@@ -1,7 +1,7 @@
-3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<h3>ENTER YOUR NAME : RIYA P L</H3>
+<H3>ENTER YOUR REGISTER NO : 212223240141</H3>
 <H3>EX. NO.6</H3>
-<H3>DATE:</H3>
+<H3>DATE: 20.05.2026</H3>
 <H1 ALIGN =CENTER>Heart attack prediction using MLP</H1>
 <H3>Aim:</H3>  To construct a  Multi-Layer Perceptron to predict heart attack using Python
 <H3>Algorithm:</H3>
@@ -17,11 +17,98 @@ Step 9:Evaluate the model's accuracy by comparing the predicted labels (y_pred) 
 Step 10:Print the accuracy of the model.<BR>
 Step 11:Plot the error convergence during training using plt.plot() and plt.show().<BR>
 <H3>Program: </H3>
-Insert your code here
+
+```
+import numpy as np
+import pandas as pd
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+# Load the dataset (assuming it's stored in a file)
+data = pd.read_csv('/content/drive/MyDrive/Neural Networks/heart.csv')
+
+# Separate features and labels
+X = data.iloc[:, :-1].values  # Features
+y = data.iloc[:, -1].values   # Labels
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Normalize the feature data
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Create and train the MLP model
+mlp = MLPClassifier(hidden_layer_sizes=(100, 100), max_iter=1000, random_state=42)
+training_loss = mlp.fit(X_train, y_train).loss_curve_
+
+# Make predictions on the testing set
+y_pred = mlp.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# Plot the error convergence
+plt.plot(training_loss)
+plt.title("MLP Training Loss Convergence")
+plt.xlabel("Iteration")
+plt.ylabel("Training Loss")
+plt.show()
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Load the Heart Disease dataset
+heart_data=pd.read_csv('https://raw.githubusercontent.com/Lavanyajoyce/EX-6-NN/main/heart.csv')
+
+# Assuming the dataset has columns for features (X) and target (y)
+X = heart_data.drop('target', axis=1)  # Update 'target_column_name' with the actual name of the target column
+y = heart_data['target']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Scale the features using StandardScaler
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Train the MLPClassifier model
+mlp_classifier = MLPClassifier(hidden_layer_sizes=(64,), max_iter=1000, random_state=42)
+mlp_classifier.fit(X_train_scaled, y_train)
+
+# Make predictions and evaluate the model
+y_pred = mlp_classifier.predict(X_test_scaled)
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+classification_rep = classification_report(y_test, y_pred)
+
+# Print the results
+print(f"Accuracy: {accuracy}")
+print("\nConfusion Matrix:")
+print(conf_matrix)
+print("\nClassification Report:")
+print(classification_rep)
+
+```
 
 <H3>Output:</H3>
 
-Show your results here
+<img width="260" height="26" alt="image" src="https://github.com/user-attachments/assets/669ac581-06d7-4e5c-8ff3-402d9064da47" />
+
+<img width="732" height="515" alt="image" src="https://github.com/user-attachments/assets/166527f3-93d9-4df2-95d7-4d638fc6efef" />
+
+<img width="662" height="87" alt="image" src="https://github.com/user-attachments/assets/5e6dda32-131c-4b2d-ad24-dee118829d7c" />
+
+<img width="607" height="312" alt="image" src="https://github.com/user-attachments/assets/6f1324f8-7e64-408a-a0e8-05bfd434e064" />
 
 <H3>Results:</H3>
 Thus, an ANN with MLP is constructed and trained to predict the heart attack using python.
